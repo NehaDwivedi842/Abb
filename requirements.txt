@@ -2,6 +2,6 @@ numpy
 imutils
 scikit-image
 streamlit
-ultralytics[headless]
+ultralytics
 dill
 opencv-python
