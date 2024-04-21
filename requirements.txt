@@ -5,3 +5,5 @@ streamlit
 ultralytics[headless]
 dill
 opencv-python
+tensorflow
+torch==2.0.1+cpu
