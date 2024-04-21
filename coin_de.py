@@ -233,16 +233,28 @@ def capture_image():
     
     while True:
         ret, frame = cap.read()
+        
+        # Check if the frame was successfully captured
+        if not ret:
+            print("Failed to capture frame")
+            break
+        
+        # Check if the frame dimensions are valid
+        if frame.shape[0] == 0 or frame.shape[1] == 0:
+            print("Invalid frame dimensions")
+            continue
+        
         cv2.imshow("Capture Image", frame)
         
         # Press 's' to capture the image
         if cv2.waitKey(1) & 0xFF == ord('s'):
+            cv2.imwrite("captured_image.jpg", frame)
             print("Image captured successfully")
             break
     
-    cap.release()  # Release the camera
-    cv2.destroyAllWindows()  # Close all OpenCV windows
-    return frame
+    cap.release()
+    cv2.destroyAllWindows()
+
 
 
 # Function to detect objects, annotate image, and calculate tonnage
