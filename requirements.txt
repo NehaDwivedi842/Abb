@@ -5,4 +5,4 @@ streamlit
 ultralytics
 dill
 opencv-python
-PIL
+Pillow
