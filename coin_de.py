@@ -151,12 +151,14 @@ from ultralytics import YOLO
 
 st.set_page_config(page_title="Object Tonnage Predictor", page_icon="📏")
 
+
 # Function to process image
 def process_image(image, tons_per_in_sq, num_cavities):
-    # Load YOLOv5 model
-    model = YOLO("yolov8m-seg-custom.pt")
     # Initialize pixel_per_cm
     pixel_per_cm = None
+
+    # Load YOLOv5 model
+    model = YOLO("yolov8m-seg-custom.pt")
 
     # Detect objects using YOLOv5
     results = model.predict(source=image, show=False)
@@ -187,8 +189,10 @@ def process_image(image, tons_per_in_sq, num_cavities):
             ref_text = "Reference object size=0.955"
             cv2.putText(image, ref_text, (center_x - 150, center_y - 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 0), 2)
 
+    # Check if no objects are detected
     if pixel_per_cm is None:
         print("No objects detected in the image. Please recapture.")
+        return None
 
     # Find contours
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -276,7 +280,7 @@ def calculate_tonnage(area_in2, tons_per_in_sq, num_cavities):
 
 
     # Display logo
-logo_image = Image.open("LogoHeader-600x85.png")
+logo_image = Image.open("C:/Users/rajen/Similarity/Main/Coin+Yolo/LogoHeader-600x85.png")
 st.image(logo_image, use_column_width=True)
 
 st.markdown("---")
@@ -349,3 +353,4 @@ if uploaded_file is not None and calculate_button:
 
 elif calculate_button:
     st.error("No image uploaded! Please upload")
+
