@@ -274,7 +274,7 @@ def calculate_tonnage(area_in2, tons_per_in_sq, num_cavities):
 
 
     # Display logo
-logo_image = Image.open("C:/Users/rajen/Similarity/Main/Coin+Yolo/LogoHeader-600x85.png")
+logo_image = Image.open("LogoHeader-600x85.png")
 st.image(logo_image, use_column_width=True)
 
 st.markdown("---")
