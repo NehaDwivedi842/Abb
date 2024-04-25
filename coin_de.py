@@ -191,7 +191,7 @@ def process_image(image, tons_per_in_sq, num_cavities):
 
     # Check if no objects are detected
     if pixel_per_cm is None:
-        print("No objects detected in the image. Please recapture.")
+        st.error("No objects detected in the image. Please recapture.")
         return None
 
     # Find contours
