@@ -155,6 +155,8 @@ st.set_page_config(page_title="Object Tonnage Predictor", page_icon="📏")
 def process_image(image, tons_per_in_sq, num_cavities):
     # Load YOLOv5 model
     model = YOLO("yolov8m-seg-custom.pt")
+    # Initialize pixel_per_cm
+    pixel_per_cm = None
 
     # Detect objects using YOLOv5
     results = model.predict(source=image, show=False)
