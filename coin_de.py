@@ -263,8 +263,8 @@ def process_image(image, tons_per_in_sq, num_cavities):
     cv2.putText(image, "Coin is the reference Object", (20, 35), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 1), 2)
     # Display success message with predicted tonnage
 
-    st.success(f"###### Calculated Area is: {area_in2}")       
-    st.success(f"##### Predicted Tonnage is: {tonnage}")
+    st.success(f"###### Calculated Area is: {round(area_in2, 2)}")       
+    st.success(f"##### Predicted Tonnage is: {round(tonnage, 2)}")
     
 
 
