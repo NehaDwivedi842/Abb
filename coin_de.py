@@ -301,6 +301,7 @@ with col1:
 
 # Input fields in col2
 with col2:
+    num_cavities = 0
     st.markdown("<h4 style='text-align: center;'>Number of Cavities</h4>", unsafe_allow_html=True)
     num_cavities = st.number_input("", key="num_cavities", value=int(num_cavities), step=1)
 
