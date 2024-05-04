@@ -262,10 +262,9 @@ def process_image(image, tons_per_in_sq, num_cavities):
     # Display the size above the image
     cv2.putText(image, "Coin is the reference Object", (20, 35), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 1), 2)
 
-    # Display success message with rounded calculated area and predicted tonnage
-    st.markdown(f'<div style="background-color: blue; color: white; padding: 10px;">###### Calculated Area is: {round(area_in2, 2)}</div>', unsafe_allow_html=True)       
-    st.markdown(f'<div style="background-color: blue; color: white; padding: 10px;">##### Predicted Tonnage is: {round(tonnage, 2)}</div>', unsafe_allow_html=True)
-
+    # Display success message with rounded calculated area and predicted tonnage      
+    st.markdown(f'<div style="background-color: blue; color: white; padding: 20px; font-size: 24px; font-weight: bold;">Predicted Tonnage is: {round(tonnage, 2)}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div style="color: blue; padding: 20px; font-size: 24px; font-weight: bold;">Calculated Area is: {round(area_in2, 2)}</div>', unsafe_allow_html=True) 
     return image
 
 # Function to calculate tonnage based on area
