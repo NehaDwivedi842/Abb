@@ -186,7 +186,7 @@ def process_image(image, tons_per_in_sq, num_cavities):
             pixel_per_cm = dist_in_pixel / ref_coin_diameter_cm
 
             # Draw reference object size message above the detected object
-            cv2.putText(image, ref_text, (center_x - 150, center_y - 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 0), 2)
+            cv2.putText(image, (center_x - 150, center_y - 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 0), 2)
 
     # Check if no objects are detected
     if pixel_per_cm is None:
