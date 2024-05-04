@@ -81,9 +81,13 @@ def process_image(image, tons_per_in_sq, num_cavities):
     if largest_contour is not None:
         # Draw contour of the object
         cv2.drawContours(image, [largest_contour], -1, (0, 0, 255), 2)  # Draw contour line instead of bounding box
-        
         # Calculate dimensions and area of the object
-        area_cm2 = cv2.contourArea(largest_contour) / (pixel_per_cm ** 2)
+        vertices = largest_contour.squeeze()  # Extract vertices of the contour
+        x, y = vertices[:, 0], vertices[:, 1]
+        area_cm2 = 0.5 * np.abs(np.dot(x, np.roll(y, 1)) - np.dot(y, np.roll(x, 1))) / (pixel_per_cm ** 2)
+                
+        # Calculate dimensions and area of the object
+        #area_cm2 = cv2.contourArea(largest_contour) / (pixel_per_cm ** 2)
         rect = cv2.minAreaRect(largest_contour)
         (x, y), (width_px, height_px), angle = rect
         width_cm = width_px / pixel_per_cm
