@@ -149,7 +149,7 @@ import imutils
 from PIL import Image
 from ultralytics import YOLO
 
-st.set_page_config(page_title="Object Tonnage Predictor", page_icon="📏")
+st.set_page_config(page_title="Tonnage Predictor")
 
 
 # Function to process image
@@ -186,7 +186,6 @@ def process_image(image, tons_per_in_sq, num_cavities):
             pixel_per_cm = dist_in_pixel / ref_coin_diameter_cm
 
             # Draw reference object size message above the detected object
-            ref_text = "Reference object size=0.955"
             cv2.putText(image, ref_text, (center_x - 150, center_y - 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 0), 2)
 
     # Check if no objects are detected
@@ -206,7 +205,7 @@ def process_image(image, tons_per_in_sq, num_cavities):
     # Filter out contours detected by YOLO
     filtered_contours = []
     for cnt in cnts:
-        if cv2.contourArea(cnt) > 50:
+        if cv2.contourArea(cnt) > 200:
             rect = cv2.minAreaRect(cnt)
             box = cv2.boxPoints(rect)
             box = np.int0(box)
