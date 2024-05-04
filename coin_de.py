@@ -258,16 +258,14 @@ def process_image(image, tons_per_in_sq, num_cavities):
     # Calculate tonnage
     tonnage = calculate_tonnage(area_in2, tons_per_in_sq, num_cavities)
 
-    # Draw text annotations with dimensions in inches and tonnage
-    cv2.putText(image, "Length: {:.1f}in".format(width_in), (text_x, text_y + 90), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
-    cv2.putText(image, "Breadth: {:.1f}in".format(height_in), (text_x, text_y + 120), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
-    cv2.putText(image, "Area: {:.1f}in^2".format(area_in2), (text_x, text_y + 150), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
-    cv2.putText(image, "Tonnage: {:.2f}".format(tonnage), (text_x, text_y + 180), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
 
     # Display the size above the image
     cv2.putText(image, "Coin is the reference Object", (20, 35), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 1), 2)
     # Display success message with predicted tonnage
+
+    st.success(f"###### Calculated Area is: {area_in2}")       
     st.success(f"##### Predicted Tonnage is: {tonnage}")
+    
 
 
     return image
@@ -304,7 +302,7 @@ with col1:
 # Input fields in col2
 with col2:
     st.markdown("<h4 style='text-align: center;'>Number of Cavities</h4>", unsafe_allow_html=True)
-    num_cavities = st.number_input("", key="num_cavities")
+    num_cavities = st.number_input("", key="num_cavities", value=int(num_cavities), step=1)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
