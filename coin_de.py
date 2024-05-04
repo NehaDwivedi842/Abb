@@ -251,7 +251,7 @@ def process_image(image, tons_per_in_sq, num_cavities):
     tonnage = calculate_tonnage(area_in2, tons_per_in_sq, num_cavities)
 
     # Display success message with rounded calculated area and predicted tonnage      
-    st.markdown(f'<div style="background-color: blue; color: white; padding: 20px; font-size: 48px; font-weight: bold;">Predicted Tonnage is: {round(tonnage, 2)}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div style="background-color: blue; color: white; padding: 20px; font-size: 36px; font-weight: bold;">Predicted Tonnage is: {round(tonnage, 2)}</div>', unsafe_allow_html=True)
     st.markdown(f'<div style="color: blue; padding: 20px; font-size: 24px; font-weight: bold;">Calculated Area is: {round(area_in2, 2)}</div>', unsafe_allow_html=True) 
     return image
 
