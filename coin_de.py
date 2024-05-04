@@ -36,7 +36,7 @@ def process_image(image, tons_per_in_sq, num_cavities):
             dist_in_pixel = max(ref_w, ref_h)  # Assuming the longer side of the bounding box as the reference size
             
             # Diameter of the coin in cm
-            ref_coin_diameter_cm = 2.426
+            ref_coin_diameter_cm = 2.38
             
             # Calculate pixel-to-cm conversion factor
             pixel_per_cm = dist_in_pixel / ref_coin_diameter_cm
@@ -92,11 +92,11 @@ def process_image(image, tons_per_in_sq, num_cavities):
     # If area is less than 1, check shape of contour line and calculate area accordingly
     if area_cm2 < 1:
         # Calculate aspect ratio of the bounding rectangle
-        aspect_ratio = width_px / height_px
+        aspect_ratio = height_cm * width_cm
 
         # If aspect ratio is less than 1, consider it as a long and narrow shape (e.g., rectangle)
         if aspect_ratio < 1:
-            area_cm2 = np.pi * ((width_cm / 2) ** 2)
+            area_cm2 = width_cm * height_cm
 
     # Calculate dimensions and area of the object in inches
     width_in = width_cm / 2.54
