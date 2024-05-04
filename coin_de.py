@@ -185,9 +185,6 @@ def process_image(image, tons_per_in_sq, num_cavities):
             # Calculate pixel-to-cm conversion factor
             pixel_per_cm = dist_in_pixel / ref_coin_diameter_cm
 
-            # Draw reference object size message above the detected object
-            cv2.putText(image, (center_x - 150, center_y - 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 0), 2)
-
     # Check if no objects are detected
     if pixel_per_cm is None:
         st.error("No reference objects detected in the image. Please recapture.")
@@ -245,10 +242,6 @@ def process_image(image, tons_per_in_sq, num_cavities):
         if aspect_ratio < 1:
             area_cm2 = np.pi * ((width_cm / 2) ** 2)
 
-    # Calculate text positions
-    text_x = int(x - 100)
-    text_y = int(y - 20)
-
     # Calculate dimensions and area of the object in inches
     width_in = width_cm / 2.54
     height_in = height_cm / 2.54
@@ -257,14 +250,11 @@ def process_image(image, tons_per_in_sq, num_cavities):
     # Calculate tonnage
     tonnage = calculate_tonnage(area_in2, tons_per_in_sq, num_cavities)
 
-
-    # Display the size above the image
-    cv2.putText(image, "Coin is the reference Object", (20, 35), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 1), 2)
-
     # Display success message with rounded calculated area and predicted tonnage      
     st.markdown(f'<div style="background-color: blue; color: white; padding: 20px; font-size: 24px; font-weight: bold;">Predicted Tonnage is: {round(tonnage, 2)}</div>', unsafe_allow_html=True)
     st.markdown(f'<div style="color: blue; padding: 20px; font-size: 24px; font-weight: bold;">Calculated Area is: {round(area_in2, 2)}</div>', unsafe_allow_html=True) 
     return image
+
 
 # Function to calculate tonnage based on area
 def calculate_tonnage(area_in2, tons_per_in_sq, num_cavities):
