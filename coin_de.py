@@ -1,12 +1,10 @@
 import cv2
 import numpy as np
 import streamlit as st
-import imutils
 from PIL import Image
 from ultralytics import YOLO
 
 st.set_page_config(page_title="Tonnage Predictor")
-
 
 # Function to process image
 def process_image(image, tons_per_in_sq, num_cavities):
@@ -53,7 +51,7 @@ def process_image(image, tons_per_in_sq, num_cavities):
     edged = cv2.dilate(edged, None, iterations=1)
     edged = cv2.erode(edged, None, iterations=1)
     cnts = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    cnts = imutils.grab_contours(cnts)
+    cnts = cnts[0] if len(cnts) == 2 else cnts[1]
 
     # Filter out contours detected by YOLO
     filtered_contours = []
@@ -83,25 +81,18 @@ def process_image(image, tons_per_in_sq, num_cavities):
         cv2.drawContours(image, [largest_contour], -1, (0, 0, 255), 2)  # Draw contour line instead of bounding box
                 
         # Calculate dimensions and area of the object
-        area_cm2 = cv2.contourArea(largest_contour) / (pixel_per_cm ** 2)
+        area = cv2.contourArea(largest_contour)
+        area_cm2 = abs(area) / (pixel_per_cm ** 2)
+        # Calculate dimensions of the object in centimeters
         rect = cv2.minAreaRect(largest_contour)
         (x, y), (width_px, height_px), angle = rect
         width_cm = width_px / pixel_per_cm
         height_cm = height_px / pixel_per_cm
 
+    area_in2 = area_cm2 / 2.54**2
     # If area is less than 1, check shape of contour line and calculate area accordingly
-    if area_cm2 < 1:
-        # Calculate aspect ratio of the bounding rectangle
-        aspect_ratio = height_cm * width_cm
-
-        # If aspect ratio is less than 1, consider it as a long and narrow shape (e.g., rectangle)
-        if aspect_ratio < 1:
-            area_cm2 = width_cm * height_cm
-
-    # Calculate dimensions and area of the object in inches
-    width_in = width_cm / 2.54
-    height_in = height_cm / 2.54
-    area_in2 = area_cm2 / 2.54
+    if area_in2 < 1:
+            area_in2 = width_cm * height_cm / 2.54 ** 2
 
     # Calculate tonnage
     tonnage = calculate_tonnage(area_in2, tons_per_in_sq, num_cavities)
