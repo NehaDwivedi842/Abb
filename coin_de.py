@@ -71,6 +71,13 @@ def process_image(image, tons_per_in_sq, num_cavities):
 
             if not contour_in_yolo_object:
                 filtered_contours.append(cnt)
+    # Find the contour with the largest area
+    if filtered_contours:
+        largest_contour = max(filtered_contours, key=cv2.contourArea)
+    else:
+        # Handle the case when no contours are found
+        st.error("No contours found after filtering. Please adjust the filtering criteria.")
+        return None
 
     # Find the contour with the largest area
     largest_contour = max(filtered_contours, key=cv2.contourArea)
@@ -190,4 +197,3 @@ if uploaded_file is not None and calculate_button:
 
 elif calculate_button:
     st.error("No image uploaded! Please upload")
-
